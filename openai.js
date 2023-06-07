@@ -8,9 +8,23 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration)
 
 export async function CallOpenAI(prompt) {
-	const completion = await openai.createCompletion({
-		model: "text-davinci-003",
-		prompt,
+	const completion = await openai.createChatCompletion({
+		model: "gpt-3.5-turbo",
+		messages: [
+			{
+				role: "user",
+				content:
+					"Apenas responda a pergunta com uma letra maíuscula, como 'D', ou 'C'. Não explique sua resposta.\nQuais dessas não é uma das ações para minimizar impactos?\nA - Ter a economia circular.\nB - Proteger os recursos hídricos.\nC - Impressão de uso material educativo para a população.\nD - Descarbonizar a economia.\nE - Proteger a biodiversidade.",
+			},
+			{
+				role: "assistant",
+				content: "C",
+			},
+			{
+				role: "user",
+				content: prompt,
+			},
+		],
 	})
-	return completion.data.choices[0].text
+	return completion.data.choices[0].message
 }
