@@ -1,30 +1,30 @@
-import { Configuration, OpenAIApi } from "openai"
-import "dotenv/config"
+import { Configuration, OpenAIApi } from "openai";
+import "dotenv/config";
 
 const configuration = new Configuration({
-	organization: "org-SE7Y6NanPOYGNGLFPKZVS8zB",
-	apiKey: process.env.OPENAI_API_KEY,
-})
-const openai = new OpenAIApi(configuration)
+  organization: "org-SE7Y6NanPOYGNGLFPKZVS8zB",
+  apiKey: process.env.OPENAI_API_KEY,
+});
+const openai = new OpenAIApi(configuration);
 
 export async function CallOpenAI(prompt) {
-	const completion = await openai.createChatCompletion({
-		model: "gpt-3.5-turbo",
-		messages: [
-			{
-				role: "user",
-				content:
-					"Apenas responda a pergunta com uma letra maíuscula, como 'D', ou 'C'. Não explique sua resposta.\nQuais dessas não é uma das ações para minimizar impactos?\nA - Ter a economia circular.\nB - Proteger os recursos hídricos.\nC - Impressão de uso material educativo para a população.\nD - Descarbonizar a economia.\nE - Proteger a biodiversidade.",
-			},
-			{
-				role: "assistant",
-				content: "C",
-			},
-			{
-				role: "user",
-				content: prompt,
-			},
-		],
-	})
-	return completion.data.choices[0].message
+  const completion = await openai.createChatCompletion({
+    model: "gpt-4",
+    messages: [
+      {
+        role: "user",
+        content:
+          "Apenas responda a pergunta com uma letra maíuscula, como 'D', ou 'C'. Não explique sua resposta.\nQuais dessas não é uma das ações para minimizar impactos?\nA - Ter a economia circular.\nB - Proteger os recursos hídricos.\nC - Impressão de uso material educativo para a população.\nD - Descarbonizar a economia.\nE - Proteger a biodiversidade.",
+      },
+      {
+        role: "assistant",
+        content: "C",
+      },
+      {
+        role: "user",
+        content: prompt,
+      },
+    ],
+  });
+  return completion.data.choices[0].message;
 }
