@@ -9,7 +9,7 @@ import promptSync from "prompt-sync";
 
   await login();
   const fastTestPage =
-    "https://on.fiap.com.br/mod/conteudoshtml/view.php?id=326087&c=9190&sesskey=HctkMv4GmL";
+    "https://on.fiap.com.br/mod/conteudoshtml/view.php?id=341562&c=9608&sesskey=KTY1PmQqd5";
   await driver.get(fastTestPage);
 
   await waitForPageLoad(driver);
