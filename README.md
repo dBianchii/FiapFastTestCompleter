@@ -5,6 +5,7 @@ Realizar os fast test usando API da OpenAPI
 ## Quick Start
 
 ### Setup dependencies
+
 ```bash
 
 pnpm i
@@ -12,8 +13,10 @@ pnpm i
 ```
 
 ### Crie um arquivo .env e preencha os valores como no .env.example
+
 ```env
 OPENAI_API_KEY="sk-435343*%¨&$¨%#T#G$%TY$%"
+OPENAI_ORGANIZATION_ID="org-SE7Y6NaRPOYGNGeLPKZVS8z6"
 FIAP_USERNAME="rm0000"
 FIAP_PASSWORD="minhasenha"
 ```
