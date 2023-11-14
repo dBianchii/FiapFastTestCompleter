@@ -34,7 +34,7 @@ pnpm start
 
 ## Notas: (Importante!)
 
-O projeto está configurado para utilizar o modelo GPT-4. Caso deseja utilizar outro modelo (se não tiver acesso a esta api por exemplo), configure manualmente no arquivo `openai.js``
+O projeto está configurado para utilizar o modelo GPT-4. Caso deseja utilizar outro modelo (se não tiver acesso a esta api por exemplo), configure manualmente no arquivo `openai.js`
 
 exemplo:
 
