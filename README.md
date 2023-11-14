@@ -31,3 +31,17 @@ const fastTestPage =
 ```bash
 pnpm start
 ```
+
+## Notas: (Importante!)
+
+O projeto está configurado para utilizar o modelo GPT-4. Caso deseja utilizar outro modelo (se não tiver acesso a esta api por exemplo), configure manualmente no arquivo `openai.js``
+
+exemplo:
+
+```diff
+- model: "gpt-4",
++ model: "gpt-3.5-turbo-1106",
+```
+
+Você pode ver os modelos existentes aqui:
+https://platform.openai.com/docs/models/models
