@@ -7,9 +7,7 @@ Realizar os fast test usando API da OpenAPI
 ### Setup dependencies
 
 ```bash
-
 pnpm i
-
 ```
 
 ### Crie um arquivo .env e preencha os valores como no .env.example
@@ -23,8 +21,13 @@ FIAP_PASSWORD="minhasenha"
 
 ### Altere a constante fastTestPage em server.js para apontar para o URL da página que contém o fast test que deseja completar
 
+```js
+const fastTestPage =
+"https://on.fiap.com.br/mod/conteudoshtml/view.php?id=341562&c=9608&sesskey=KTY1PmQqd5";    <---- Altere aqui
+```
+
 ### Rode o projeto
 
-```
+```bash
 pnpm start
 ```

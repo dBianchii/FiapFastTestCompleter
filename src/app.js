@@ -27,6 +27,7 @@ import promptSync from "prompt-sync";
   const prompt = promptSync();
   const answer = prompt("> ");
   if (answer !== "y") return;
+  console.log("Continuing...");
 
   for (let i = 0; i < elements.length; i++) {
     const element = elements[i];
