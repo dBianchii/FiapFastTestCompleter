@@ -1,6 +1,6 @@
 # FiapFastTestCompleter
 
-Realizar os fast test usando API da OpenAPI
+Realizar os fast test usando API da OpenAI
 
 ## Quick Start
 
