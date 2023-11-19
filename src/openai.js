@@ -9,7 +9,7 @@ const openai = new OpenAIApi(configuration);
 
 export async function CallOpenAI(prompt) {
   const completion = await openai.createChatCompletion({
-    model: "gpt-4", //? <--- Altere aqui o modelo caso necessário
+    model: "gpt-4-1106-preview", //? <--- Altere aqui o modelo caso necessário
     messages: [
       {
         role: "user",

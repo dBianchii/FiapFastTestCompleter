@@ -39,7 +39,7 @@ O projeto está configurado para utilizar o modelo GPT-4. Caso deseja utilizar o
 exemplo:
 
 ```diff
-- model: "gpt-4",
+- model: "gpt-4-1106-preview",
 + model: "gpt-3.5-turbo-1106",
 ```
 
