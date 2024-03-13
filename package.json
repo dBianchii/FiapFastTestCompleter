@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
+    "preinstall": "pnpx only-allow pnpm",
     "start": "node ./src/app.js"
   },
   "author": "",
