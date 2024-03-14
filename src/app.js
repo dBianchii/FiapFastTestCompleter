@@ -22,11 +22,11 @@ async function IrParaPagina(pagina) {
 (async function main() {
   await login();
   await IrParaPagina(
-    "https://on.fiap.com.br/mod/conteudoshtml/view.php?id=355329&c=9935&sesskey=wENCEJlh15"
+    "https://on.fiap.com.br/mod/conteudoshtml/view.php?id=371297&c=10291&sesskey=cSn9lhz1Vo"
   );
 
-  EnviarResposts();
-  //TentarNovamente();
+  AnalizarEEnviarRespostas(); //<--- Use este para iniciar o programa do zero usando o link acima
+  //TentarNovamente(); //<--- Caso queira apenas continuar na segunda tentativa use este e comente o de cima
 })();
 
 async function AnalizarEEnviarRespostas() {
@@ -34,7 +34,7 @@ async function AnalizarEEnviarRespostas() {
   if (!elements) throw new Error("No elements found");
   const selectedAnswers = [];
 
-  console.log("Found", elements.length, "questions. Continue? (y/n)");
+  console.log("Encontrado", elements.length, "perguntas. Continuar? (y/n)");
   const prompt = promptSync();
   const answer = prompt("> ");
   if (answer !== "y") return;
@@ -93,7 +93,7 @@ async function AnalizarEEnviarRespostas() {
   }
 
   console.log(selectedAnswers);
-  console.log("Done!", selectedAnswers.length, "answers selected.");
+  console.log("Pronto!", selectedAnswers.length, "respostas selecionadas.");
 
   console.log("Quer enviar estes resultados? (y/n)");
   const prompt2 = promptSync();
@@ -121,8 +121,8 @@ async function AnalizarEEnviarRespostas() {
 
   // Split the cleaned string into two parts based on '/'
   const parts = scoreString.replace(/\s+/g, "").split("/");
-  const leftPart = parseInt(parts[0], 10);
-  const rightPart = parseFloat(parts[1]);
+  const leftPart = parseFloat(parts[0], 10);
+  const rightPart = parseFloat(parts[1], 10);
   const allRight = leftPart === rightPart;
 
   console.log("Score:", `${parts[0]}/${parts[1]}`);
@@ -139,65 +139,107 @@ async function AnalizarEEnviarRespostas() {
   TentarNovamente();
 }
 
-async function TentarNovamente() {
-  const elements = await driver.findElements(By.css(".on-fast-test-item"));
+async function TentarNovamente(_idsCorretos, _idsIncorretosJuntoComExplicacao) {
+  let idsCorretos = _idsCorretos;
+  let idsIncorretosJuntoComExplicacao = _idsIncorretosJuntoComExplicacao;
 
-  const idsCorretos = await pegarIdsCorretos();
-  const idsIncorretosJuntoComExplicacao =
-    await pegarIdsIncorretosJuntoComExplicacao(elements);
+  if (!_idsCorretos && !_idsIncorretosJuntoComExplicacao) {
+    //Se o usuario nao passou os ids corretos e incorretos, pegar eles do site e depois clicar tentar novamente
 
-  console.log(idsCorretos);
-  console.log(idsIncorretosJuntoComExplicacao);
+    const elements = await driver.findElements(By.css(".on-fast-test-item"));
 
-  await driver.findElement(By.css(".on-button-try-again-fast-test")).click();
+    idsCorretos = await pegarIdsCorretos();
+    idsIncorretosJuntoComExplicacao =
+      await pegarIdsIncorretosJuntoComExplicacao(elements);
+    await driver.findElement(By.css(".on-button-try-again-fast-test")).click();
+  }
+
+  console.log("IdsCorretos:", idsCorretos);
+  console.log(
+    "idsIncorretosJuntoComExplicacao:",
+    idsIncorretosJuntoComExplicacao
+  );
 
   await driver.wait(
     until.elementLocated(By.css(".on-button-finish-fast-test"))
   );
   //INICIAR TENTAR NOVAMENTE
 
+  for (const id of idsCorretos) {
+    await driver.executeScript(
+      `document.querySelector('[data-answer-id="${id}"] .on-fast-test-question-box').click()`
+    );
+  }
+
   const onFastTestItems = await driver.findElements(
     By.css(".on-fast-test-item")
+  );
+
+  const allIncorretosSelectedAnswerIds = idsIncorretosJuntoComExplicacao.map(
+    (item) => item.answerId
   );
 
   for (let i = 0; i < onFastTestItems.length; i++) {
     const fastTestItem = onFastTestItems[i];
 
+    let allAnswerIdsInHere = [];
+    const questionContainers = await fastTestItem.findElements(
+      By.css(".on-fast-test-question-container")
+    );
+    for (let j = 0; j < questionContainers.length; j++) {
+      const dataAnswerId = await questionContainers[j].getAttribute(
+        "data-answer-id"
+      );
+      allAnswerIdsInHere.push(dataAnswerId);
+    }
+
+    if (allAnswerIdsInHere.some((x) => idsCorretos.includes(x))) continue;
+
     const [questionText, optionA, optionB, optionC, optionD, optionE] =
       await getOptionsAndQuestionText(fastTestItem);
 
-    idsCorretos.forEach((answerId) => {
-      //get the .on-fast-test-question-container with the data-answer-id
-      const questionContainer = fastTestItem
-        .findElement(
-          By.css(`[data-answer-id="${answerId}"] .on-fast-test-question-box`)
-        )
-        .click();
-    });
-    // const prefix =
-    //   "Apenas responda a pergunta com uma letra maíuscula, como 'D', ou 'C'. Não explique sua resposta.";
-    // const prompt =
-    //   prefix +
-    //   "\n" +
-    //   questionText +
-    //   "\n" +
-    //   optionA +
-    //   "\n" +
-    //   optionB +
-    //   "\n" +
-    //   optionC +
-    //   "\n" +
-    //   optionD +
-    //   "\n" +
-    //   optionE;
+    const objetoAtual = idsIncorretosJuntoComExplicacao.find(
+      (x) => x.pergunta === questionText
+    );
 
-    // const chatgptResult = await CallOpenAI(prompt);
+    if (!objetoAtual) throw new Error("Objeto atual não encontrado.");
 
-    // const result = chatgptResult.content[chatgptResult.content.length - 1];
+    const prompt = [
+      `Pergunta anterior: ${objetoAtual.pergunta}\n`,
+      `Resposta anterior dada: ${objetoAtual.respostaData}\n`,
+      `Esta resposta está errada! Segue o motivo por ela estar errada: "${objetoAtual.explanation}"\n`,
+      `Agora, tente novamente.\n\n\n`,
+      `Apenas responda a pergunta com uma letra maíuscula, como 'D', ou 'C'. Não explique sua resposta.\n`,
+      `${optionA}\n`,
+      `${optionB}\n`,
+      `${optionC}\n`,
+      `${optionD}\n`,
+      `${optionE}\n`,
+    ]
+      .filter((x) => x.substring !== objetoAtual.respostaData)
+      .join("");
 
-    // const questionContainers = await fastTestItem.findElements(
-    //   By.css(".on-fast-test-question-container")
-    // );
+    console.log(prompt);
+
+    const chatgptResult = await CallOpenAI(prompt);
+    const result = chatgptResult.content[chatgptResult.content.length - 1];
+
+    for (let j = 0; j < questionContainers.length; j++) {
+      const dataAnswerId = await questionContainers[j].getAttribute(
+        "data-answer-id"
+      );
+      //get the li element inside it
+      const answer = (
+        await questionContainers[j]
+          .findElement(By.css(`li`))
+          .getAttribute("innerHTML")
+      ).toUpperCase();
+      if (answer === result) {
+        await driver.executeScript(
+          `document.querySelector('[data-answer-id="${dataAnswerId}"] .on-fast-test-question-box').click()`
+        );
+      }
+    }
   }
 }
 
