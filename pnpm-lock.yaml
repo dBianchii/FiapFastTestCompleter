@@ -12,8 +12,8 @@ importers:
         specifier: ^0.1.0
         version: 0.1.0
       chromedriver:
-        specifier: ^125.0.0
-        version: 125.0.0
+        specifier: ^128.0.0
+        version: 128.0.1
       dotenv:
         specifier: ^16.1.4
         version: 16.3.1
@@ -59,8 +59,8 @@ packages:
   axios@0.26.1:
     resolution: {integrity: sha512-fPwcX4EvnSHuInCMItEhAGnaSEXRBjtzh9fOtsE6E1G6p7vl7edEeZe11QHf18+6+9gR5PbKV/sGKNaD8YaMeA==}
 
-  axios@1.7.2:
-    resolution: {integrity: sha512-2A8QhOMrbomlDuiLeK9XibIBzuHeRcqqNOHp0Cyp5EoJ1IFDh+XZH3A6BkXtv0K4gFGCI0Y4BM7B1wOEi0Rmgw==}
+  axios@1.7.7:
+    resolution: {integrity: sha512-S4kL7XrjgBmvdGut0sN3yJxqYzrDOnivkBiN0OFs6hLiUam3UPvswUo0kqGyhqUZGEOytHyumEdXsAkgCOUf3Q==}
 
   base64-js@0.0.8:
     resolution: {integrity: sha512-3XSA2cR/h/73EzlXXdU6YNycmYI7+kicTxks4eJg2g39biHR84slg2+des+p7iHYhbRg/udIS4TD53WabcOUkw==}
@@ -80,8 +80,8 @@ packages:
     resolution: {integrity: sha512-6KYl20U4Taj6YipylsWr2etUvp9AElJKfGNSBmyGTymYmancnOb041ZNadolEZi2nboLXH7jMSqUmm4kpuTzfg==}
     hasBin: true
 
-  chromedriver@125.0.0:
-    resolution: {integrity: sha512-wWXrxWLWqXRTmRZDtPigs+ys44srlpHTpsL7MHnZc9iaE1oIB0hslSVeem6TcsEb1Ou8nvPx3vs5bPwCI6+VHg==}
+  chromedriver@128.0.1:
+    resolution: {integrity: sha512-UmWqZXXAyuRa37pE+lnU46vJcCM/y0ddF015LHxycEOYfuqsK7k9ZxJuXCQNWbws9e7FAMQj/GJZT92WPgis0g==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -433,7 +433,7 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  axios@1.7.2:
+  axios@1.7.7:
     dependencies:
       follow-redirects: 1.15.6
       form-data: 4.0.0
@@ -454,10 +454,10 @@ snapshots:
       exeq: 2.4.0
       plist: 1.2.0
 
-  chromedriver@125.0.0:
+  chromedriver@128.0.1:
     dependencies:
       '@testim/chrome-version': 1.1.4
-      axios: 1.7.2
+      axios: 1.7.7
       compare-versions: 6.1.0
       extract-zip: 2.0.1
       proxy-agent: 6.4.0

@@ -22,7 +22,7 @@ async function IrParaPagina(pagina) {
 (async function main() {
   await login();
   await IrParaPagina(
-    "https://on.fiap.com.br/mod/conteudoshtml/view.php?id=371297&c=10291&sesskey=cSn9lhz1Vo"
+    "https://on.fiap.com.br/mod/conteudoshtml/view.php?id=417731&c=11502&sesskey=Rj5xFl6ob3"
   );
 
   AnalizarEEnviarRespostas(); //<--- Use este para iniciar o programa do zero usando o link acima
