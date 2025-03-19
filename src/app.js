@@ -1,9 +1,9 @@
-import { Builder, By, Key, until } from "selenium-webdriver";
 import "chromedriver";
-import { waitForPageLoad } from "./helpers.js";
-import { CallOpenAI } from "./openai.js";
 import "dotenv/config";
 import promptSync from "prompt-sync";
+import { Builder, By, until } from "selenium-webdriver";
+import { waitForPageLoad } from "./helpers.js";
+import { CallOpenAI } from "./openai.js";
 
 let driver = await new Builder().forBrowser("chrome").build();
 
@@ -22,7 +22,7 @@ async function IrParaPagina(pagina) {
 (async function main() {
   await login();
   await IrParaPagina(
-    "https://on.fiap.com.br/mod/conteudoshtml/view.php?id=417731&c=11502&sesskey=Rj5xFl6ob3"
+    "https://on.fiap.com.br/mod/conteudoshtml/view.php?id=452326&c=12330&sesskey=J2FLBZJzAB"
   );
 
   AnalizarEEnviarRespostas(); //<--- Use este para iniciar o programa do zero usando o link acima
@@ -127,7 +127,9 @@ async function AnalizarEEnviarRespostas() {
 
   console.log("Score:", `${parts[0]}/${parts[1]}`);
   if (allRight)
-    return console.log("All right! No need to analyze wrong answers.");
+    return console.log(
+      "Score perfeito! Não é necessário analizar respostas erradas."
+    );
 
   console.log(
     "Você quer que o ChatGPT tente novamente? Ele vai analizar as suas respostas erradas, e selecionar de novo as que você já acertou. (y/n)"

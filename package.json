@@ -17,5 +17,6 @@
     "openai": "^3.2.1",
     "prompt-sync": "^4.2.0",
     "selenium-webdriver": "^4.21.0"
-  }
+  },
+  "packageManager": "pnpm@10.6.3"
 }
