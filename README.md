@@ -19,7 +19,7 @@ FIAP_USERNAME="rm0000"
 FIAP_PASSWORD="minhasenha"
 ```
 
-### Altere a constante fastTestPage em server.js para apontar para o URL da página que contém o fast test que deseja completar
+### Altere a constante fastTestPage em app.js para apontar para o URL da página que contém o fast test que deseja completar
 
 ```js
 const fastTestPage =
