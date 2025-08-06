@@ -12,11 +12,11 @@
   "license": "ISC",
   "dependencies": {
     "chrome": "^0.1.0",
-    "chromedriver": "^128.0.0",
+    "chromedriver": "^134.0.3",
     "dotenv": "^16.1.4",
     "openai": "^3.2.1",
     "prompt-sync": "^4.2.0",
-    "selenium-webdriver": "^4.21.0"
+    "selenium-webdriver": "^4.29.0"
   },
   "packageManager": "pnpm@10.6.3"
 }

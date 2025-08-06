@@ -22,11 +22,11 @@ async function IrParaPagina(pagina) {
 (async function main() {
   await login();
   await IrParaPagina(
-    "https://on.fiap.com.br/mod/conteudoshtml/view.php?id=452326&c=12330&sesskey=J2FLBZJzAB"
+    "https://on.fiap.com.br/mod/conteudoshtml/view.php?id=484475&c=13167&sesskey=waBZRFqidi"
   );
 
-  AnalizarEEnviarRespostas(); //<--- Use este para iniciar o programa do zero usando o link acima
-  //TentarNovamente(); //<--- Caso queira apenas continuar na segunda tentativa use este e comente o de cima
+  await AnalizarEEnviarRespostas(); //<--- Use este para iniciar o programa do zero usando o link acima
+  //await TentarNovamente(); //<--- Caso queira apenas continuar na segunda tentativa use este e comente o de cima
 })();
 
 async function AnalizarEEnviarRespostas() {
@@ -165,6 +165,7 @@ async function TentarNovamente(_idsCorretos, _idsIncorretosJuntoComExplicacao) {
   await driver.wait(
     until.elementLocated(By.css(".on-button-finish-fast-test"))
   );
+  await driver.wait(until.elementLocated(By.css(".on-fast-test-question-box")));
   //INICIAR TENTAR NOVAMENTE
 
   for (const id of idsCorretos) {
